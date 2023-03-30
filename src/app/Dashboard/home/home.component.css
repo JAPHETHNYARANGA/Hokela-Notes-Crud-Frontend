@@ -1,0 +1,17 @@
+.container-fluid .row{
+    margin-top: 2rem;
+}
+.container-fluid .row .col-md-5{
+    display: flex;
+    /* padding-top: 0.5rem; */
+    float: right;
+}
+.container-fluid .row .col-md-5 p,
+.container-fluid .row .col-md-5 i{
+    margin:0 1rem;
+}
+
+.container-fluid .row .col-md-7 .card .top-nav{
+    display: flex;
+    justify-content: space-between;
+}
