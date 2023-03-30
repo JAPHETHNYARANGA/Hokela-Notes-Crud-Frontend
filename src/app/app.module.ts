@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ChartModule } from 'angular-highcharts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { HomeComponent } from './Dashboard/home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ChartModule
    
   ],
   providers: [],
