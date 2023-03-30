@@ -4,8 +4,10 @@
 .container-fluid .row .col-md-5{
     display: flex;
     /* padding-top: 0.5rem; */
-    float: right;
+    text-align: center;
+    cursor: pointer;
 }
+
 .container-fluid .row .col-md-5 p,
 .container-fluid .row .col-md-5 i{
     margin:0 1rem;
