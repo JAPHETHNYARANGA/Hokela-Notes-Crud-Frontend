@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular-highcharts';
 
@@ -7,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Authentication/login/login.component';
 import { RegisterComponent } from './Authentication/register/register.component';
 import { HomeComponent } from './Dashboard/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,11 +17,14 @@ import { HomeComponent } from './Dashboard/home/home.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChartModule
+    ChartModule,
+    FormsModule,
+    HttpClientModule,
    
   ],
   providers: [],

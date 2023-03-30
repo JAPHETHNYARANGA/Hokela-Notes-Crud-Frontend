@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Chart } from 'angular-highcharts';
 import { chart } from 'highcharts';
+import { AuthenticatedUserService } from 'src/app/Api/ApiServices/UserAuthentication/authenticated-user.service';
 
 
 
@@ -11,8 +13,15 @@ import { chart } from 'highcharts';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
+  constructor(private router:Router, private authenticatedUser:AuthenticatedUserService){}
+
+  ngOnInit(): void {
+    if(!this.authenticatedUser.isAuthenticated()){
+      this.router.navigate([''],{replaceUrl:true});
+    }
+  }
 
 
   chart = new Chart({

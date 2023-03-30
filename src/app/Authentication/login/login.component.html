@@ -6,18 +6,22 @@
             <h6>Login</h6>
             <p>We suggest you use your daily email address</p>
 
-            <form>
+            <form (ngSubmit)="login()">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" 
+                  name="email"
+                  [(ngModel)]="email">
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                  name="password"
+                  [(ngModel)]="password">
                 </div>
                 <div class="form-check">
-                  <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+                
                   <label class="form-check-label" for="exampleCheck1"><a href="">Forgot Password?</a></label>
                 </div>
                 <div class="text-center">
@@ -25,7 +29,8 @@
                 </div>
                
               </form>
-              <p class="text-center mt-5"><a href="">Dont have an account? Register here</a></p>
+              <p class="text-center mt-5" (click)="navigateToRegister()">Dont have an account? Register here</p>
+              
         </div>
         <div class="col-md-6 col-sm-12 ">
             <div class="text-center">
