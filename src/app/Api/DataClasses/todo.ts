@@ -10,10 +10,10 @@ export interface Todo {
         created_at:string,
         updated_at:string
     }
-    todos:Todo[];
+    todos:TodoData[];
 }
 
-export interface Todo{
+export interface TodoData{
     id:number,
     userId:string,
     todo:string,
