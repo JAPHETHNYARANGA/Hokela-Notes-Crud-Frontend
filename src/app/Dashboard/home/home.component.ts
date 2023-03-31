@@ -20,6 +20,13 @@ export class HomeComponent implements OnInit{
   username:any;
   todos :any;
   updatedTodos:any;
+  completedTodos:any;
+  completedData = '';
+  ongoingData ='';
+  startedData = '';
+  totalTodos = '';
+  // s = 0; //
+  chart!: Chart;
 
   constructor(private router:Router, private authenticatedUser:AuthenticatedUserService, private authenticationService:AuthenticationService, private todoService:TodoService){}
 
@@ -30,19 +37,79 @@ export class HomeComponent implements OnInit{
     })
   }
 
+  loadTotalTodos(){
+    this.todoService.getNotes().subscribe(response=>{
+      this.todos = response.todos;
+      this.totalTodos = this.todos.length;
+    })
+  }
+
   loadTodo(){
     this.todoService.getNotes().subscribe(response=>{
       this.todos = response.todos.filter(todo => todo.status === 0)
-      // this.todos = response.todos
+      this.startedData = this.todos.length;
+      
     })
+    
   }
 
   loadUpdatedTodo(){
     this.todoService.getNotes().subscribe(response=>{
       this.updatedTodos = response.todos.filter(todo => todo.status === 1)
-      // this.todos = response.todos
+      this.ongoingData = this.updatedTodos.length;
     })
   }
+
+  loadCompletedTodo(){
+    this.todoService.getNotes().subscribe(response=>{
+      this.completedTodos = response.todos.filter(todo => todo.status === 2)
+      // console.log(this.completedTodos.length); 
+      this.completedData = this.completedTodos.length;
+
+    })
+  }
+
+
+  updateChartData() {
+    let completedPie = 0; 
+    let ongoingPie = 0;
+    let startingPie = 0;
+    
+    this.todoService.getNotes().subscribe(response=>{
+      if(response.todos.filter(todo => todo.status === 2)){
+        completedPie = response.todos.filter(todo => todo.status === 2).length; // Assign value to 's'
+      }
+      if(response.todos.filter(todo => todo.status === 1)){
+        ongoingPie = response.todos.filter(todo => todo.status === 1).length;
+      }
+      if(response.todos.filter(todo => todo.status === 0)){
+        startingPie = response.todos.filter(todo => todo.status === 0).length;
+      }
+  
+      this.chart = new Chart({
+        chart: {
+          type: 'pie'
+        },
+        title: {
+          text: 'Stats'
+        },
+        credits: {
+          enabled: false
+        },
+        series: [
+          {
+            name: ['stats'],
+            data: [
+              { name: 'Completed', y: completedPie},
+              { name: 'ON going', y: ongoingPie},
+              { name: 'Started', y: startingPie }
+            ]
+          } as any
+        ]
+      });
+    });
+  }
+  
 
   ngOnInit(): void {
     if(!this.authenticatedUser.isAuthenticated()){
@@ -51,36 +118,11 @@ export class HomeComponent implements OnInit{
     this.loadUserName()
     this.loadTodo()
     this.loadUpdatedTodo()
+    this.loadCompletedTodo()
+    this.loadTotalTodos()
+    this.updateChartData() 
+    
   }
-
-
-  chart = new Chart({
-    chart: {
-      type: 'pie'
-    },
-    title: {
-      text: 'Stats'
-    },
-    credits: {
-      enabled: false
-    },
-    series: [
-      {
-        name: ['stats'],
-        data: [
-          { name: 'Completed', y: 1 },
-          { name: 'ON going', y: 2 },
-          { name: 'Started', y: 3 }
-        ]
-      } as any
-    ]
-  });
-
-  // add point to chart serie
-  add() {
-    this.chart.addPoint(Math.floor(Math.random() * 10));
-  }
-
 
   logout(){
     this.authenticationService.logout().subscribe(response=>{

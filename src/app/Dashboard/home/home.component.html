@@ -33,9 +33,9 @@
                         <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded" *ngFor="let todo of todos">
                             <h5 class="card-header">{{ todo.todo }}</h5>
                             <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
+                                <h5 class="card-title">Created at:</h5>
+                                <p>{{ todo.created_at |date }}</p>
+                               
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
@@ -49,9 +49,8 @@
                         <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded" *ngFor="let todo of updatedTodos">
                             <h5 class="card-header">{{ todo.todo }}</h5>
                             <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
+                                
+                                <h5 class="card-title">Started at :</h5><p>{{ todo.updated_at | date}}</p>
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
@@ -62,35 +61,18 @@
 
                     <div class="col-md-4 col-sm-12">
                         <h5>Completed</h5>
-                        <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
-                            <h5 class="card-header">Featured</h5>
+                        <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded" *ngFor="let todo of completedTodos">
+                            <h5 class="card-header">{{ todo.todo }}</h5>
                             <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
+
+                                <h5 class="card-title">Completed at :</h5><p>{{ todo.updated_at | date}}</p>
+                                
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <i class="fa-solid fa-trash"></i>
                             </div>
                         </div>
 
-                        <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
-                            <h5 class="card-header">Walk The Dog</h5>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-
-                        <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
-                            <h5 class="card-header">Walk The Dog</h5>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -107,7 +89,7 @@
                         <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
                            <h6>Total</h6>
                            <div class="card-body">
-                            <p>56</p>
+                            <p>{{ totalTodos }}</p>
                            </div>
                         </div>
                        
@@ -116,7 +98,7 @@
                         <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
                             <h6>Completed</h6>
                             <div class="card-body">
-                                <p>56</p>
+                                <p>{{ completedData}}</p>
                                </div>
                         </div>
                     </div>
@@ -126,7 +108,7 @@
                         <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
                             <h6>ON Going</h6>
                             <div class="card-body">
-                                <p>56</p>
+                                <p>{{ ongoingData }}</p>
                                </div>
                         </div>
                        
@@ -135,7 +117,7 @@
                         <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
                             <h6>Started</h6>
                             <div class="card-body">
-                                <p>56</p>
+                                <p>{{ startedData }}</p>
                                </div>
                         </div>
                     </div>
