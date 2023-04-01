@@ -1,7 +1,30 @@
-<form [formGroup]="editTodo" (ngSubmit)="updateTodo()">
-    <div class="input-group">
-        <input type="text" class="form-control rounded" placeholder="Create New Todo"  aria-label="create"
-            aria-describedby="search-addon"  formControlName="todo" name="todo" [(ngModel)]="todo"/>
-            <button class="btn btn-primary" type="submit">Update Todo</button>
+<div class="container">
+
+    <div class="image text-center">
+        <img src="assets/Images/logo.png" alt="">
     </div>
-</form>
+
+    <div class="text-center">
+        <h6>Please Enter the new name for the Choosen todo</h6>
+
+    </div>
+
+    <div class="text-center">
+
+        <form [formGroup]="editTodo" (ngSubmit)="updateTodo()">
+            <div class="input-group">
+                <input type="text" class="form-control rounded" placeholder="Update Choosen Todo" aria-label="create"
+                    aria-describedby="search-addon" formControlName="todo" name="todo" [(ngModel)]="todo" />
+                <button class="btn btn-primary" type="submit">Update Todo</button>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="text-center">
+        <button class="btn btn-success">Go Back Home</button>
+    </div>
+
+
+</div>
