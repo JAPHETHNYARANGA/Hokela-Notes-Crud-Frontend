@@ -1,3 +1,13 @@
+.todoHead{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+#search{
+    margin-left: 5%;
+    border: 1px solid black;
+}
+
 .container-fluid .row{
     margin-top: 2rem;
 }
@@ -32,3 +42,5 @@
     color:orange;
     font-size: 2rem; 
 }
+
+

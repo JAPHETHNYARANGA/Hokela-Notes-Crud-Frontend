@@ -1,10 +1,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-7 col-sm-6">
-            <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                    aria-describedby="search-addon" [(ngModel)]="searchTerm" (keyup)="loadStartData()" />
-                <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
+            <div class="input-group ">
+                <div class="row" style="width: 100%;">
+                   
+                        <label for="exampleInputPassword1" class="text-center todoHead">Search for Todos here</label>
+                        <input type="search" class="form-control rounded" id="search" placeholder="Search" aria-label="Search"
+                            aria-describedby="search-addon" [(ngModel)]="searchTerm" (keyup)="loadStartData()" />
+                    
+                </div>
+
+
+
             </div>
         </div>
 
@@ -24,12 +31,12 @@
                     <h5>Todos</h5>
                     <form (ngSubmit)="createTodo()">
                         <div class="input-group">
-                            <input type="text" class="form-control rounded" placeholder="Create New Todo"  aria-label="create"
-                                aria-describedby="search-addon"  [(ngModel)]="todo" name="todo"/>
-                                <button class="btn btn-primary" type="submit">Create Todos</button>
+                            <input type="text" class="form-control rounded" id="search" placeholder="Create New Todo"
+                                aria-label="create" aria-describedby="search-addon" [(ngModel)]="todo" name="todo" />
+                            <button class="btn btn-primary" type="submit">Create Todos</button>
                         </div>
                     </form>
-                   
+
                 </div>
                 <div class="row">
 
@@ -37,14 +44,15 @@
 
                     <div class="col-md-4 col-sm-12">
                         <h5>Started</h5>
-                        <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded" *ngFor="let todo of startedTodos">
+                        <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded"
+                            *ngFor="let todo of startedTodos">
                             <h5 class="card-header startedText">{{ todo.todo }}</h5>
                             <div class="card-body">
                                 <h5 class="card-title">Created at:</h5>
                                 <p>{{ todo.created_at |date }}</p>
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-warning" routerLink="update/{{ todo.id }}"  >
+                                        <button type="button" class="btn btn-warning" routerLink="update/{{ todo.id }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                         <h6>Edit</h6>

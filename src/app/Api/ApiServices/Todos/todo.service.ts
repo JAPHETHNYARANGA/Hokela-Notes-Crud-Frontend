@@ -27,10 +27,6 @@ export class TodoService {
   }
 
 
-  // getNotes(searchTerm:string):Observable<Todo>{
-  //   return this.http.get<Todo>(this.getNotesUrl, {headers:this.headers});
-  // }
-
   getNotes(searchTerm: string): Observable<Todo> {
     const url = `${Constants.BASE_URL+'todos'}?search=${searchTerm}`;
     return this.http.get<Todo>(url, {headers:this.headers});
