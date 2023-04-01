@@ -3,8 +3,8 @@
         <div class="col-md-7 col-sm-6">
             <div class="input-group">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                    aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
+                    aria-describedby="search-addon" [(ngModel)]="searchTerm" (keyup)="loadStartData()" />
+                <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
             </div>
         </div>
 
@@ -44,7 +44,7 @@
                                 <p>{{ todo.created_at |date }}</p>
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-warning">
+                                        <button type="button" class="btn btn-warning" routerLink="update/{{ todo.id }}"  >
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                         <h6>Edit</h6>

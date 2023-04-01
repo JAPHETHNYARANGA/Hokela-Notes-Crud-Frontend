@@ -1,1 +1,7 @@
-<p>update works!</p>
+<form [formGroup]="editTodo" (ngSubmit)="updateTodo()">
+    <div class="input-group">
+        <input type="text" class="form-control rounded" placeholder="Create New Todo"  aria-label="create"
+            aria-describedby="search-addon"  formControlName="todo" name="todo" [(ngModel)]="todo"/>
+            <button class="btn btn-primary" type="submit">Update Todo</button>
+    </div>
+</form>

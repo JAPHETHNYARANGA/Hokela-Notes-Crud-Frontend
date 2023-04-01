@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit{
   totalTodos = '';
   //text input
   todo = '';
+  searchTerm: string = '';
   
   chart!: Chart;
 
@@ -50,21 +51,21 @@ export class HomeComponent implements OnInit{
  
 
   loadUserName(){
-    this.todoService.getNotes().subscribe(response =>{
+    this.todoService.getNotes(this.searchTerm).subscribe(response =>{
       this.username = response.user
     })
     
   }
 
   loadTotalTodos(){
-    this.todoService.getNotes().subscribe(response=>{
+    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
       this.todos = response.todos;
       this.totalTodos = this.todos.length;
     })
   }
 
   loadTodo(){
-    this.todoService.getNotes().subscribe(response=>{
+    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
       this.startedTodos= response.todos.filter(todo => todo.status === 0)
       this.startedData = this.startedTodos.length;
       
@@ -73,14 +74,14 @@ export class HomeComponent implements OnInit{
   }
 
   loadUpdatedTodo(){
-    this.todoService.getNotes().subscribe(response=>{
+    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
       this.updatedTodos = response.todos.filter(todo => todo.status === 1)
       this.ongoingData = this.updatedTodos.length;
     })
   }
 
   loadCompletedTodo(){
-    this.todoService.getNotes().subscribe(response=>{
+    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
       this.completedTodos = response.todos.filter(todo => todo.status === 2)
       // console.log(this.completedTodos.length); 
       this.completedData = this.completedTodos.length;
@@ -94,7 +95,7 @@ export class HomeComponent implements OnInit{
     let ongoingPie = 0;
     let startingPie = 0;
     
-    this.todoService.getNotes().subscribe(response=>{
+    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
       if(response.todos.filter(todo => todo.status === 2)){
         completedPie = response.todos.filter(todo => todo.status === 2).length;
       }

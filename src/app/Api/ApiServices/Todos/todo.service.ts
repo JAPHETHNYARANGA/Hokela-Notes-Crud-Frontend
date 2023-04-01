@@ -27,8 +27,19 @@ export class TodoService {
   }
 
 
-  getNotes():Observable<Todo>{
-    return this.http.get<Todo>(this.getNotesUrl, {headers:this.headers});
+  // getNotes(searchTerm:string):Observable<Todo>{
+  //   return this.http.get<Todo>(this.getNotesUrl, {headers:this.headers});
+  // }
+
+  getNotes(searchTerm: string): Observable<Todo> {
+    const url = `${Constants.BASE_URL+'todos'}?search=${searchTerm}`;
+    return this.http.get<Todo>(url, {headers:this.headers});
+  }
+  
+
+  getSpecificNote(id:number):Observable<Todo>{
+    const url =`${Constants.BASE_URL}todo/${id}`; 
+    return this.http.get<Todo>(url)
   }
 
   deleteNotes(id:number):Observable<any>{
@@ -44,7 +55,7 @@ export class TodoService {
 
   updateNotes(todo:string, id:number):Observable<Todo>{
     const body = {todo:todo, id:id};
-    const url =`${Constants.BASE_URL}tupdateTodo/${id}`;
+    const url =`${Constants.BASE_URL}updateTodo/${id}`;
     return this.http.put<Todo>(url, body,{headers:this.headers});
 
   }
