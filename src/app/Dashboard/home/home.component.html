@@ -22,11 +22,14 @@
             <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded" style="height:auto">
                 <div class="top-nav">
                     <h5>Todos</h5>
-                    <div class="input-group">
-                        <input type="text" class="form-control rounded" placeholder="Create New Todo" aria-label="create"
-                            aria-describedby="search-addon" />
-                            <button class="btn btn-primary">Create Todos</button>
-                    </div>
+                    <form (ngSubmit)="createTodo()">
+                        <div class="input-group">
+                            <input type="text" class="form-control rounded" placeholder="Create New Todo"  aria-label="create"
+                                aria-describedby="search-addon"  [(ngModel)]="todo" name="todo"/>
+                                <button class="btn btn-primary" type="submit">Create Todos</button>
+                        </div>
+                    </form>
+                   
                 </div>
                 <div class="row">
 

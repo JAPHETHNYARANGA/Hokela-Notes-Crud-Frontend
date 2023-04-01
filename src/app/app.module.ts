@@ -9,6 +9,7 @@ import { LoginComponent } from './Authentication/login/login.component';
 import { RegisterComponent } from './Authentication/register/register.component';
 import { HomeComponent } from './Dashboard/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UpdateComponent } from './Dashboard/update/update.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    UpdateComponent
 
   ],
   imports: [

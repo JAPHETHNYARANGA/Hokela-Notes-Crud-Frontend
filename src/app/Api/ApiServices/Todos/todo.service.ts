@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Constants } from '../../Constants/constants';
-import { Todo } from '../../DataClasses/todo';
+import { Todo, TodoData } from '../../DataClasses/todo';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,15 @@ export class TodoService {
   });
 
 
-  private getNotesUrl = Constants.BASE_URL+'todos'
+  private getNotesUrl = Constants.BASE_URL+'todos';
+
+  createNotes(todo:string):Observable<Todo>{
+    const body = {todo:todo};
+    const url =`${Constants.BASE_URL}todos`;
+    return this.http.post<Todo>(url, body,{headers:this.headers});
+
+  }
+
 
   getNotes():Observable<Todo>{
     return this.http.get<Todo>(this.getNotesUrl, {headers:this.headers});
@@ -32,5 +40,12 @@ export class TodoService {
     const url = `${Constants.BASE_URL}updateStatus/${id}`;
     const body = { status: status  };
     return this.http.put(url,body,{headers:this.headers});
+  }
+
+  updateNotes(todo:string, id:number):Observable<Todo>{
+    const body = {todo:todo, id:id};
+    const url =`${Constants.BASE_URL}tupdateTodo/${id}`;
+    return this.http.put<Todo>(url, body,{headers:this.headers});
+
   }
 }

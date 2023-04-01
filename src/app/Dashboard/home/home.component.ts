@@ -7,6 +7,7 @@ import { chart } from 'highcharts';
 import { AuthenticationService } from 'src/app/Api/ApiServices/Authentication/authentication.service';
 import { TodoService } from 'src/app/Api/ApiServices/Todos/todo.service';
 import { AuthenticatedUserService } from 'src/app/Api/ApiServices/UserAuthentication/authenticated-user.service';
+import { Todo } from 'src/app/Api/DataClasses/todo';
 
 
 
@@ -27,11 +28,26 @@ export class HomeComponent implements OnInit{
   ongoingData ='';
   startedData = '';
   totalTodos = '';
-  // s = 0; //
+  //text input
+  todo = '';
+  
   chart!: Chart;
 
   constructor( private location: Location,private router:Router, private authenticatedUser:AuthenticatedUserService, private authenticationService:AuthenticationService, private todoService:TodoService){}
 
+  createTodo(){
+    this.todoService.createNotes(this.todo).subscribe((response:Todo)=>{
+        if(response.success == true){
+          
+          this.reloadPage()
+          
+        }else{
+          console.log(response)
+        }
+    })
+  }
+
+ 
 
   loadUserName(){
     this.todoService.getNotes().subscribe(response =>{
@@ -120,6 +136,7 @@ export class HomeComponent implements OnInit{
     this.loadCompletedTodo()
     this.loadTotalTodos()
     this.updateChartData() 
+   
     
   }
 
@@ -131,9 +148,13 @@ export class HomeComponent implements OnInit{
     // window.location.reload()
     this.loadStartData()
     
-    
+    // this.reloadPage()
   }
 
+  // ngAfterViewInit() {
+  //   location.reload();
+  // }
+  
   deleteTodo(id:number){
     this.todoService.deleteNotes(id).subscribe(()=>{
       this.loadStartData()
@@ -146,6 +167,14 @@ export class HomeComponent implements OnInit{
     })
   }
 
+  
+
+  reloadPage() {
+    const currentUrl = this.location.path();
+    window.location.href = currentUrl;
+    // or you can use the following line to reload without changing the URL
+    // window.location.reload();
+  }
 
   logout(){
     this.authenticationService.logout().subscribe(response=>{
