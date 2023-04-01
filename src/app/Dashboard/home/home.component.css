@@ -18,3 +18,17 @@
     justify-content: space-between;
 }
 
+.completedText{
+    color:Red;
+    text-decoration: line-through;
+    font-size: 2rem;
+}
+.onGoingText{
+    color:green;
+    font-size: 2rem; 
+}
+
+.startedText{
+    color:orange;
+    font-size: 2rem; 
+}

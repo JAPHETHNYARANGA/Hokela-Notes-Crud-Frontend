@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit{
   todos :any;
   updatedTodos:any;
   completedTodos:any;
+  startedTodos:any;
   completedData = '';
   ongoingData ='';
   startedData = '';
@@ -28,13 +30,14 @@ export class HomeComponent implements OnInit{
   // s = 0; //
   chart!: Chart;
 
-  constructor(private router:Router, private authenticatedUser:AuthenticatedUserService, private authenticationService:AuthenticationService, private todoService:TodoService){}
+  constructor( private location: Location,private router:Router, private authenticatedUser:AuthenticatedUserService, private authenticationService:AuthenticationService, private todoService:TodoService){}
 
 
   loadUserName(){
     this.todoService.getNotes().subscribe(response =>{
       this.username = response.user
     })
+    
   }
 
   loadTotalTodos(){
@@ -46,8 +49,8 @@ export class HomeComponent implements OnInit{
 
   loadTodo(){
     this.todoService.getNotes().subscribe(response=>{
-      this.todos = response.todos.filter(todo => todo.status === 0)
-      this.startedData = this.todos.length;
+      this.startedTodos= response.todos.filter(todo => todo.status === 0)
+      this.startedData = this.startedTodos.length;
       
     })
     
@@ -77,7 +80,7 @@ export class HomeComponent implements OnInit{
     
     this.todoService.getNotes().subscribe(response=>{
       if(response.todos.filter(todo => todo.status === 2)){
-        completedPie = response.todos.filter(todo => todo.status === 2).length; // Assign value to 's'
+        completedPie = response.todos.filter(todo => todo.status === 2).length;
       }
       if(response.todos.filter(todo => todo.status === 1)){
         ongoingPie = response.todos.filter(todo => todo.status === 1).length;
@@ -110,11 +113,7 @@ export class HomeComponent implements OnInit{
     });
   }
   
-
-  ngOnInit(): void {
-    if(!this.authenticatedUser.isAuthenticated()){
-      this.router.navigate([''],{replaceUrl:true});
-    }
+  loadStartData(){
     this.loadUserName()
     this.loadTodo()
     this.loadUpdatedTodo()
@@ -124,11 +123,37 @@ export class HomeComponent implements OnInit{
     
   }
 
+  ngOnInit(): void {
+    if(!this.authenticatedUser.isAuthenticated()){
+      this.router.navigate([''], {replaceUrl:true});
+      console.log("not authenticated")
+    }
+    // window.location.reload()
+    this.loadStartData()
+    
+    
+  }
+
+  deleteTodo(id:number){
+    this.todoService.deleteNotes(id).subscribe(()=>{
+      this.loadStartData()
+    })
+  }
+
+  updateStatus(id:number){
+    this.todoService.updateStatus(id).subscribe(()=>{
+      this.loadStartData()
+    })
+  }
+
+
   logout(){
     this.authenticationService.logout().subscribe(response=>{
       if(response.success == true){
         localStorage.removeItem('token');
         this.router.navigate([''], {replaceUrl:true})
+        
+        
       }
     })
   }

@@ -22,4 +22,15 @@ export class TodoService {
   getNotes():Observable<Todo>{
     return this.http.get<Todo>(this.getNotesUrl, {headers:this.headers});
   }
+
+  deleteNotes(id:number):Observable<any>{
+    const url = `${Constants.BASE_URL}deleteTodo/${id}`;
+    return this.http.get(url, {headers:this.headers});
+  }
+
+  updateStatus(id:number):Observable<any>{
+    const url = `${Constants.BASE_URL}updateStatus/${id}`;
+    const body = { status: status  };
+    return this.http.put(url,body,{headers:this.headers});
+  }
 }
