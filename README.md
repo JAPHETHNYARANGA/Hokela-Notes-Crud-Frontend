@@ -37,7 +37,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # screenshots.
 
-![Screenshot of My Application](./src/assets/screenshots/Screenshot1.png)
-![Screenshot of My Application](./src/assets/screenshots/Screenshot2.png)
+![Screenshot of My Application](./src/assets/screenshots/screenshot1.png)
+![Screenshot of My Application](./src/assets/screenshots/screenshot2.png)
 
 ![Screenshot of My Application](./src/assets/screenshots/Screenshot.png)
