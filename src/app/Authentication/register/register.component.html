@@ -5,27 +5,28 @@
         <div class="col-md-6 col-sm-12">
             <h6>Register</h6>
             <p>We suggest you use your daily email address</p>
+            <p>Please fill in all fields</p>
 
             <form (ngSubmit)="register()">
                 <div class="form-group">
                     <label for="exampleInputEmail1">UserName</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
                     name="name"
-                  [(ngModel)]="name">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  [(ngModel)]="name" required>
+                    
                   </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address</label>
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
                   name="email"
-                  [(ngModel)]="email">
+                  [(ngModel)]="email" required>
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label>
                   <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
                   name="password"
-                  [(ngModel)]="password">
+                  [(ngModel)]="password" required>
                 </div>
                
                 <div class="text-center">
@@ -33,6 +34,7 @@
                 </div>
                
               </form>
+              <div *ngIf="failureMessage" class="alert alert-danger">{{ failureMessage }}</div>
               <p class="text-center mt-5" (click)="navigateToLogin()">Already have an account? Login here</p>
         </div>
         <div class="col-md-6 col-sm-12 ">

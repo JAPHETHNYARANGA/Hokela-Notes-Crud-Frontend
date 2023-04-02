@@ -1,13 +1,15 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Chart } from 'angular-highcharts';
-import { chart } from 'highcharts';
 import { AuthenticationService } from 'src/app/Api/ApiServices/Authentication/authentication.service';
 import { TodoService } from 'src/app/Api/ApiServices/Todos/todo.service';
 import { AuthenticatedUserService } from 'src/app/Api/ApiServices/UserAuthentication/authenticated-user.service';
 import { Todo } from 'src/app/Api/DataClasses/todo';
+
+import { combineLatest } from 'rxjs';
+
+
 
 
 
@@ -50,44 +52,44 @@ export class HomeComponent implements OnInit{
 
  
 
-  loadUserName(){
-    this.todoService.getNotes(this.searchTerm).subscribe(response =>{
-      this.username = response.user
-    })
+  // loadUserName(){
+  //   this.todoService.getNotes(this.searchTerm).subscribe(response =>{
+  //     this.username = response.user
+  //   })
     
-  }
+  // }
 
-  loadTotalTodos(){
-    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
-      this.todos = response.todos;
-      this.totalTodos = this.todos.length;
-    })
-  }
+  // loadTotalTodos(){
+  //   this.todoService.getNotes(this.searchTerm).subscribe(response=>{
+  //     this.todos = response.todos;
+  //     this.totalTodos = this.todos.length;
+  //   })
+  // }
 
-  loadTodo(){
-    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
-      this.startedTodos= response.todos.filter(todo => todo.status === 0)
-      this.startedData = this.startedTodos.length;
+  // loadTodo(){
+  //   this.todoService.getNotes(this.searchTerm).subscribe(response=>{
+  //     this.startedTodos= response.todos.filter(todo => todo.status === 0)
+  //     this.startedData = this.startedTodos.length;
       
-    })
+  //   })
     
-  }
+  // }
 
-  loadUpdatedTodo(){
-    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
-      this.updatedTodos = response.todos.filter(todo => todo.status === 1)
-      this.ongoingData = this.updatedTodos.length;
-    })
-  }
+  // loadUpdatedTodo(){
+  //   this.todoService.getNotes(this.searchTerm).subscribe(response=>{
+  //     this.updatedTodos = response.todos.filter(todo => todo.status === 1)
+  //     this.ongoingData = this.updatedTodos.length;
+  //   })
+  // }
 
-  loadCompletedTodo(){
-    this.todoService.getNotes(this.searchTerm).subscribe(response=>{
-      this.completedTodos = response.todos.filter(todo => todo.status === 2)
-      // console.log(this.completedTodos.length); 
-      this.completedData = this.completedTodos.length;
+  // loadCompletedTodo(){
+  //   this.todoService.getNotes(this.searchTerm).subscribe(response=>{
+  //     this.completedTodos = response.todos.filter(todo => todo.status === 2)
+  //     // console.log(this.completedTodos.length); 
+  //     this.completedData = this.completedTodos.length;
 
-    })
-  }
+  //   })
+  // }
 
 
   updateChartData() {
@@ -130,31 +132,49 @@ export class HomeComponent implements OnInit{
     });
   }
   
-  loadStartData(){
-    this.loadUserName()
-    this.loadTodo()
-    this.loadUpdatedTodo()
-    this.loadCompletedTodo()
-    this.loadTotalTodos()
-    this.updateChartData() 
+  // loadStartData(){
+  //   this.loadUserName()
+  //   this.loadTodo()
+  //   this.loadUpdatedTodo()
+  //   this.loadCompletedTodo()
+  //   this.loadTotalTodos()
+  //   this.updateChartData() 
    
     
+  // }
+
+  loadStartData(){
+    combineLatest([
+      this.todoService.getNotes(this.searchTerm),
+      this.todoService.getNotes(this.searchTerm),
+      this.todoService.getNotes(this.searchTerm),
+      this.todoService.getNotes(this.searchTerm),
+      this.todoService.getNotes(this.searchTerm)
+    ]).subscribe(([response1, response2, response3, response4, response5]) => {
+      this.username = response1.user;
+      this.todos = response2.todos;
+      this.startedTodos = response3.todos.filter(todo => todo.status === 0);
+      this.updatedTodos = response4.todos.filter(todo => todo.status === 1);
+      this.completedTodos = response5.todos.filter(todo => todo.status === 2);
+      this.startedData = this.startedTodos.length;
+      this.ongoingData = this.updatedTodos.length;
+      this.completedData = this.completedTodos.length;
+      this.totalTodos = this.todos.length;
+      this.updateChartData(); 
+    });
   }
+  
 
   ngOnInit(): void {
     if(!this.authenticatedUser.isAuthenticated()){
       this.router.navigate([''], {replaceUrl:true});
       console.log("not authenticated")
     }
-    // window.location.reload()
-    this.loadStartData()
+    this.loadStartData();
     
-    // this.reloadPage()
   }
 
-  // ngAfterViewInit() {
-  //   location.reload();
-  // }
+  
   
   deleteTodo(id:number){
     this.todoService.deleteNotes(id).subscribe(()=>{
@@ -173,16 +193,14 @@ export class HomeComponent implements OnInit{
   reloadPage() {
     const currentUrl = this.location.path();
     window.location.href = currentUrl;
-    // or you can use the following line to reload without changing the URL
-    // window.location.reload();
   }
 
   logout(){
     this.authenticationService.logout().subscribe(response=>{
       if(response.success == true){
         localStorage.removeItem('token');
+        // localStorage.clear();
         this.router.navigate([''], {replaceUrl:true})
-        
         
       }
     })

@@ -1,5 +1,14 @@
 # HokelaFrontend
 
+## Known Bugs
+The application has to be reloaded once a user logs in. This is currently being corrected
+
+## Technologies
+
+* Angular
+* Rxjs library
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
 
 ## Development server

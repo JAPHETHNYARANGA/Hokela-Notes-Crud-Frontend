@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from 'src/app/Api/ApiServices/Todos/todo.service';
+import { AuthenticatedUserService } from 'src/app/Api/ApiServices/UserAuthentication/authenticated-user.service';
 import { Todo, TodoData } from 'src/app/Api/DataClasses/todo';
 
 @Component({
@@ -11,7 +12,7 @@ import { Todo, TodoData } from 'src/app/Api/DataClasses/todo';
 })
 export class UpdateComponent implements OnInit {
 
-  constructor(private todoService:TodoService, private router:Router, private route:ActivatedRoute){}
+  constructor(private todoService:TodoService, private router:Router, private route:ActivatedRoute, private authenticatedUser:AuthenticatedUserService){}
   
   todos :any;
   contacts: TodoData[] = []
@@ -30,12 +31,11 @@ export class UpdateComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // const id = this.route.snapshot.params['id'];
-    // this.todoService.getSpecificNote(id).subscribe((response: any) => {
-    //   const todo = response.todos;
-    //   this.editTodo.setValue({ todo: todo.todo }); // set the value of the form control
-    // });
-    
+ 
+    if(!this.authenticatedUser.isAuthenticated()){
+      this.router.navigate([''], {replaceUrl:true});
+      console.log("not authenticated")
+    }
     
 
   }
@@ -57,6 +57,10 @@ export class UpdateComponent implements OnInit {
         console.log(response)
       }
     })
+  }
+
+  navigateToHome(){
+    this.router.navigate(['home'], {replaceUrl:true})
   }
 }
 

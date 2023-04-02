@@ -17,7 +17,7 @@ export class TodoService {
   });
 
 
-  private getNotesUrl = Constants.BASE_URL+'todos';
+  
 
   createNotes(todo:string):Observable<Todo>{
     const body = {todo:todo};
