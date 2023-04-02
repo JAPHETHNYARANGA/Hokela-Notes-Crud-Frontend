@@ -3,6 +3,10 @@
 ## Known Bugs
 The application has to be reloaded once a user logs in. This is currently being corrected
 
+# Backend Server
+
+Once the application is cloned, clone the laravel backend server in the link given and follow instructions to make the backend up and running. Then run your apllication without any additional modifications backend Link: https://github.com/JAPHETHNYARANGA/Hokela-Notes-Crud-Backend.git
+
 ## Technologies
 
 * Angular
